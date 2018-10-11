@@ -7,3 +7,5 @@ Por el momento, sólo está disponible un contrato de crowdsale básico, el cual
 Próximos pasos:
 - Agregar otros contratos con más opciones.
 - Permitir interactuar desde la aplicación web con un contrato ya desplegado.
+
+La prueba de concepto está disponible en http://165.227.165.98:3002
