@@ -1,0 +1,5 @@
+contracts/node_modules
+contracts/truffle.js
+contracts/package-lock.json
+front-end/node_modules
+front-end/package-lock.json

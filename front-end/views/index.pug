@@ -1,0 +1,121 @@
+extends layout
+block content
+    header.tf-header
+      nav.navbar.py-5.navbar-dark
+        .container
+          h1
+            a.navbar-brand(href='#') ezIco
+          #navbar
+            ul.nav.pull-right
+              li.nav-item
+                a.nav-link(href='#') Inicio
+              li.nav-item
+                a.nav-link(href='#tickets') Generar
+              li.nav-item
+                a.nav-link(href='#tf-carousel') Nosotros
+              li.nav-item
+                a.nav-link(href='#contact') Contáctanos
+      .container
+        .row
+          .col-md-7.col-sm-12
+            h2
+              | Crea tu ICO
+              br
+              |  sin programar
+        .row
+          .col-md-7.col-sm-12
+            p.mt-4
+              | Facilitamos el proceso de despliegue de contratos inteligentes para ICOs
+            p.mt-5
+              strong.text-uppercase Prueba de concepto
+              span  - Crea un contrato básico de crowdsale con su token ERC20 asociado
+              p#tokenAbi(hidden='') #{tokenAbi}
+              p#crowdsaleAbi(hidden='') #{crowdsaleAbi}
+              p#tokenBC(hidden='') #{tokenByteCode}
+              p#crowdsaleBC(hidden='') #{crowdsaleByteCode}
+    .page-content
+      div
+        .tf-work-section
+            #tickets.container
+                h2.h3 Generar contrato básico de Crowdsale
+            .container
+                .row.no-gutters
+                    .col-md-1.col-sm-4.tf-hh-col
+                        label(for='tokenName') Nombre
+                        input.mt-1.form-control(type='text' id='tokenName' name='tokenName' placeholder='myToken')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenSymbol') Símbolo
+                        input.mt-1.form-control(type='text' id='tokenSymbol' name='tokenSymbol' placeholder='MET')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenDecimals') Decimales
+                        input.mt-1.form-control(type='number' id='tokenDecimals' name='tokenDecimals' placeholder=18 min='0' max='18')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenSupply') Suministro
+                        input.mt-1.form-control(type='number' id='tokenSupply' name='tokenSupply' placeholder=100)
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='crowdsaleRate') Tokens/ETH
+                        input.mt-1.form-control(type='number' id='crowdsaleRate' name='crowdsaleRate' placeholder=1)
+                    .col-md-2.offset-md-1.col-sm-4
+                        a.tf-header-heading-btn.a.btn.btn-primary.btn-block.mt-1(href='#myTokens' onclick='getABI()') Generar crowdsale                         
+        .tf-quotes-section
+          #tf-carousel.carousel.slide.mt-5(data-ride='carousel')
+            ol.carousel-indicators
+              li.active(data-target='#tf-carousel', data-slide-to='0')
+              li(data-target='#tf-carousel', data-slide-to='1')
+            .carousel-inner
+              .carousel-item.active(style="background-image: url('images/5-start-simple-slider.jpg');")
+                .carousel-caption
+                  p.slider-text-2
+                    | ¿Cuál es nuestra propuesta?
+                  p.slider-text-1
+                    | Sólo necesitas desarrollar tu idea de emprendimiento, nuestra herramienta
+                    br
+                    | te permite desarrollar el contrato para tu ICO sin necesidad de programar
+              .carousel-item(style="background-image: url('images/7-start-simple-slider.jpg');")
+                .carousel-caption
+                  p.slider-text-2
+                    | ¿Qué debes saber?
+                  p.slider-text-1
+                    | - El código de nuestros contratos está disponible en github
+                    br
+                    | - Usamos las herramientas de openzeppelin para ofrecer seguridad
+                    br
+                    | - Este proyecto es experimental, nuestros contratos aún no han sido auditados 
+            a.carousel-control-prev(href='#tf-carousel', role='button', data-slide='prev')
+              span.carousel-control-prev-icon(aria-hidden='true')
+              span.sr-only Previous
+            a.carousel-control-next(href='#tf-carousel', role='button', data-slide='next')
+              span.carousel-control-next-icon(aria-hidden='true')
+              span.sr-only Next
+        .tf-contact-section
+          #contact.container
+            h2.h4 Comunícate con nosotros
+          .container
+            .row
+              .col-md-4.col-sm-12
+                h3.h5 Contáctanos
+                form(action='https://formspree.io/youremail@example.com', method='POST')
+                  .row.no-gutters
+                    .col-lg-6.col-md-12.col-sm-12.tf-contact-col
+                      input.bg-light.form-control(type='text', name='name', placeholder='*Tu nombre', required='required')
+                    .col-lg-6.col-md-12.col-sm-12.pb-2
+                      input.bg-light.form-control(type='email', name='_replyto', placeholder='*Tu email', required='required')
+                  .row.pb-2.no-gutters
+                    .col-md-12.col-sm-12
+                      textarea.bg-light.mb-2.form-control(name='message', placeholder='*Tu mensaje', rows='3', required='required')
+                  button.btn.btn-primary(type='submit') Enviar
+              .col-md-8.col-sm-12.float-right.text-right
+
+                h3.h5 Teléfono
+                p +521 5583618217
+                h3.h5 Email
+                p ochoacabriles@gmail.com
+    footer.bg-dark.py-4.mt-5.tf-footer
+      .container.text-light
+        .row
+          .col-md-6.col-sm-12 © blockchain1o1. Derechos reservados.
+          .col-md-6.col-sm-12.text-right.tf-design
+            | Design - 
+            a(href='https://templateflip.com', target='_blank') Templateflip
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
