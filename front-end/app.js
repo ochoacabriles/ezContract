@@ -7,6 +7,8 @@ var logger = require('morgan');
 var favicon = require('serve-favicon');
 
 var indexRouter = require('./routes/index');
+var eztokenRouter = require('./routes/eztoken')
+var ezicoRouter = require('./routes/ezico')
 
 var app = express();
 
@@ -23,6 +25,8 @@ app.use(bodyParser.json())
 app.use(favicon(path.join(__dirname, 'public', 'Favicon.ico')))
 
 app.use('/', indexRouter);
+app.use('/eztoken', eztokenRouter);
+app.use('/ezico', ezicoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

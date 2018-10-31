@@ -3332,7 +3332,7 @@ tbody.collapse.show {
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #FF574E;
+  background-color: #868e96;
 }
 
 .dropdown-item.disabled, .dropdown-item:disabled {
@@ -3899,7 +3899,7 @@ tbody.collapse.show {
   list-style: none;
 }
 
-.nav-link {
+.nav-link, .dropdown {
   display: block;
   padding: 0.5rem 1rem;
 }

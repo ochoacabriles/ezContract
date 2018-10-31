@@ -9,21 +9,8 @@ block content
             ul.nav.pull-right
               li.nav-item
                 a.nav-link(href='#') Inicio
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                  | Productos 
-                  span.caret
-                ul.dropdown-menu
-                  li.dropdown-item
-                    a(href='/eztoken') EZ-Token
-                  li.dropdown-item
-                    a(href='/ezico') EZ-ICO
-                  li.dropdown-item
-                    a(href='#') EZ-Sales
-                  li.dropdown-item
-                    a(href='#') EZ-Auctions
               li.nav-item
-                a.nav-link(href='#why') ¿Por qué?
+                a.nav-link(href='#tickets') Generar
               li.nav-item
                 a.nav-link(href='#tf-carousel') Nosotros
               li.nav-item
@@ -39,31 +26,34 @@ block content
               | Ponemos a tu disposición nuestra herramienta,
               | que te permite crear y desplegar contratos inteligentes
               | sin necesidad de programar.
+              p#tokenAbi(hidden='') #{tokenAbi}
+              p#crowdsaleAbi(hidden='') #{crowdsaleAbi}
+              p#tokenBC(hidden='') #{tokenByteCode}
+              p#crowdsaleBC(hidden='') #{crowdsaleByteCode}
     .page-content
       div
         .tf-work-section
-          #work.container
-            h2.h3 ¿Por qué EZ-Contract?
-          .container
-            .row
-              .col-md-4.col-sm-12.pt-2
-                .card
-                  img.img-fluid.card-img-top(src='images/2-start-simple.jpg', alt='2-start-simple')
-                  .card-body
-                    p.text-muted
-                      | Los contratos inteligentes permiten prescindir de intermediarios en operaciones entre particulares, disminuyendo los costos y mejorando la privacidad.
-              .col-md-4.col-sm-12.pt-2
-                .card
-                  img.img-fluid.card-img-top(src='images/3-start-simple.jpg', alt='3-start-simple')
-                  .card-body
-                    p.text-muted
-                      | Las principales dificultades para llevar la tecnología de contratos inteligentes al público son el déficit de programadores y los compromisos de seguridad, pues estos contratos habitualmente manejan dinero.
-              .col-md-4.col-sm-12.pt-2
-                .card
-                  img.img-fluid.card-img-top(src='images/4-start-simple.jpg', alt='4-start-simple')
-                  .card-body
-                    p.text-muted
-                      | EZ-Contract pone a tu disposición contratos inteligentes seguros para casos de uso estandarizables, como Tokens, ICOs y operaciones de compra-venta. De esta forma puedes disfrutar las ventajas de esta tecnología de manera sencilla.
+            #tickets.container
+                h2.h3 Generar contrato básico de Crowdsale
+            .container
+                .row.no-gutters
+                    .col-md-1.col-sm-4.tf-hh-col
+                        label(for='tokenName') Nombre
+                        input.mt-1.form-control(type='text' id='tokenName' name='tokenName' placeholder='myToken')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenSymbol') Símbolo
+                        input.mt-1.form-control(type='text' id='tokenSymbol' name='tokenSymbol' placeholder='MET')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenDecimals') Decimales
+                        input.mt-1.form-control(type='number' id='tokenDecimals' name='tokenDecimals' placeholder=18 min='0' max='18')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenSupply') Suministro
+                        input.mt-1.form-control(type='number' id='tokenSupply' name='tokenSupply' placeholder=100)
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='crowdsaleRate') Tokens/ETH
+                        input.mt-1.form-control(type='number' id='crowdsaleRate' name='crowdsaleRate' placeholder=1)
+                    .col-md-2.offset-md-1.col-sm-4
+                        a.tf-header-heading-btn.a.btn.btn-primary.btn-block.mt-1(href='#myTokens' onclick='getABI()') Generar crowdsale                         
         .tf-quotes-section
           #tf-carousel.carousel.slide.mt-5(data-ride='carousel')
             ol.carousel-indicators
@@ -75,21 +65,19 @@ block content
                   p.slider-text-2
                     | ¿Cuál es nuestra propuesta?
                   p.slider-text-1
-                    | Sólo necesitas desarrollar tu idea de emprendimiento, nuestra herramienta te permite crear
+                    | Sólo necesitas desarrollar tu idea de emprendimiento, nuestra herramienta
                     br
-                    | los contratos inteligentes que necesitas sin preocuparte por la programación ni por la seguridad
+                    | te permite desarrollar el contrato para tu ICO sin necesidad de programar
               .carousel-item(style="background-image: url('images/7-start-simple-slider.jpg');")
                 .carousel-caption
                   p.slider-text-2
                     | ¿Qué debes saber?
                   p.slider-text-1
-                    | - Nuestros contratos han sido desarrollados siguiendo buenas prácticas de seguridad.
+                    | - El código de nuestros contratos está disponible en github
                     br
-                    | - El código de nuestros contratos está disponible en github.
+                    | - Usamos las herramientas de openzeppelin para ofrecer seguridad
                     br
-                    | - Nuestros contratos han sido auditados para garantizar su seguridad. (EN PROCESO)
-                    br
-                    | - Esta tecnología aún está en una fase experimental, toma tus precauciones!
+                    | - Este proyecto es experimental, nuestros contratos aún no han sido auditados 
             a.carousel-control-prev(href='#tf-carousel', role='button', data-slide='prev')
               span.carousel-control-prev-icon(aria-hidden='true')
               span.sr-only Previous
