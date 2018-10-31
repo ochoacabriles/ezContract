@@ -8,7 +8,8 @@ var favicon = require('serve-favicon');
 
 var indexRouter = require('./routes/index');
 var eztokenRouter = require('./routes/eztoken')
-var ezicoRouter = require('./routes/ezico')
+var ezicoBasicRouter = require('./routes/ezicoBasic')
+var ezicoMintedRouter = require('./routes/ezicoMinted')
 
 var app = express();
 
@@ -26,7 +27,8 @@ app.use(favicon(path.join(__dirname, 'public', 'Favicon.ico')))
 
 app.use('/', indexRouter);
 app.use('/eztoken', eztokenRouter);
-app.use('/ezico', ezicoRouter);
+app.use('/ezicoBasic', ezicoBasicRouter);
+app.use('/ezicoMinted', ezicoMintedRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

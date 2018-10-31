@@ -1,0 +1,76 @@
+extends layout
+block content
+    header.tf-header
+      nav.navbar.py-5.navbar-dark
+        .container
+          h1
+            a.navbar-brand(href='/') #{title}
+          #navbar
+            ul.nav.pull-right
+              li.nav-item
+                a.nav-link(href='/') Inicio
+              li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                  | Productos 
+                  span.caret
+                ul.dropdown-menu
+                  li.dropdown-item
+                    a(href='/eztoken') EZ-Token
+                  li.dropdown-item
+                    a(href='/ezicoBasic') EZ-ICO (Basic Crowdsale)
+                  li.dropdown-item
+                    a(href='/ezicoMinted') EZ-ICO (Minted Crowdsale)
+                  li.dropdown-item
+                    a(href='#') EZ-Sales
+                  li.dropdown-item
+                    a(href='#') EZ-Auctions
+        .container
+            .row
+              .col-md-7.col-sm-12
+                h2
+                  | EZ_ICO
+            .row
+              .col-md-7.col-sm-12
+                p.mt-2
+                  | Crea tu propio token ERC20 y el contrato que lo controla. 
+                  | Solo debes indicar el nombre, el símbolo, la cantidad de decimales, el suministro y la tasa de cambio.
+                  | Todos los tokens son creados al inicio, y son enviados al contrato inteligente.
+                  | Cuando tu contrato reciba ETH enviará tokens, y los ETH recibidos los enviará a tu cuenta de Metamask.
+    .page-content
+      div
+        .tf-work-section
+            .container
+                h2.h3 Crea tu contrato para ICO (Basic)
+                p#contract(hidden='') ezicoBasic
+                p#tokenAbi(hidden='') #{tokenAbi}
+                p#tokenBC(hidden='') #{tokenByteCode}
+                p#crowdsaleAbi(hidden='') #{crowdsaleAbi}
+                p#crowdsaleBC(hidden='') #{crowdsaleByteCode}
+            .container
+                .row.no-gutters
+                    .col-md-1.col-sm-4.tf-hh-col
+                        label(for='tokenName') Nombre
+                        input.mt-1.form-control(type='text' id='tokenName' name='tokenName' placeholder='myToken')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenSymbol') Símbolo
+                        input.mt-1.form-control(type='text' id='tokenSymbol' name='tokenSymbol' placeholder='MET')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenDecimals') Decimales
+                        input.mt-1.form-control(type='number' id='tokenDecimals' name='tokenDecimals' placeholder=18 min='0' max='18')
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='tokenSupply') Suministro
+                        input.mt-1.form-control(type='number' id='tokenSupply' name='tokenSupply' placeholder=100)
+                    .col-md-1.offset-md-1.col-sm-4
+                        label(for='crowdsaleRate') Tokens/ETH
+                        input.mt-1.form-control(type='number' id='crowdsaleRate' name='crowdsaleRate' placeholder=1)
+                    .col-md-2.offset-md-1.col-sm-4
+                        a.tf-header-heading-btn.a.btn.btn-primary.btn-block.mt-1(href='#myTokens' onclick='getABI()') Generar Contrato                       
+    footer.bg-dark.py-4.mt-5.tf-footer
+      .container.text-light
+        .row
+          .col-md-6.col-sm-12 © blockchain1o1. Derechos reservados.
+          .col-md-6.col-sm-12.text-right.tf-design
+            | Design - 
+            a(href='https://templateflip.com', target='_blank') Templateflip
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')

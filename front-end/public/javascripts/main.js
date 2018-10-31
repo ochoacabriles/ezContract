@@ -12,12 +12,17 @@ function getABI(){
     if (contract == 'eztoken') {
         deployToken(tokenContract, tokenByteCode)
     }
-    if (contract == 'ezico') {
+    if (contract == 'ezicoBasic' || contract == 'ezicoMinted') {
         var crowdsaleAbi = JSON.parse(document.getElementById('crowdsaleAbi').innerHTML)
         var crowdsaleByteCode = document.getElementById('crowdsaleBC').innerHTML
         var crowdsaleContract = web3.eth.contract(crowdsaleAbi)
         console.log({crowdsaleAbi}, {crowdsaleByteCode})
-        deployCrowdsale(tokenContract, tokenByteCode, crowdsaleContract, crowdsaleByteCode)
+        if (contract == 'ezicoBasic') {
+            deployBasicCrowdsale(tokenContract, tokenByteCode, crowdsaleContract, crowdsaleByteCode)
+        }
+        if (contract == 'ezicoMinted') {
+            deployMintedCrowdsale(tokenContract, tokenByteCode, crowdsaleContract, crowdsaleByteCode)
+        }
     }
 }
 
@@ -67,7 +72,7 @@ async function deployToken(tokenContract, tokenByteCode) {
       
 }
 
-async function deployCrowdsale(token, tokenByteCode, crowdsale, crowdsaleByteCode){
+async function deployBasicCrowdsale(token, tokenByteCode, crowdsale, crowdsaleByteCode){
 
     var tokenName = document.getElementById('tokenName').innerHTML != ""
         ? document.getElementById('tokenName').innerHTML
@@ -155,6 +160,81 @@ async function deployCrowdsale(token, tokenByteCode, crowdsale, crowdsaleByteCod
                             })
                         }
 
+                    }
+                })
+            }
+        }
+    })
+}
+
+async function deployMintedCrowdsale(token, tokenByteCode, crowdsale, crowdsaleByteCode){
+
+    var tokenName = document.getElementById('tokenName').innerHTML != ""
+        ? document.getElementById('tokenName').innerHTML
+        : 'myToken'
+    var tokenSymbol = document.getElementById('tokenSymbol').innerHTML != ""
+        ? document.getElementById('tokenSymbol').innerHTML
+        : 'MT'
+    var tokenDecimals = document.getElementById('tokenDecimals').innerHTML != ""
+        ? Number(document.getElementById('tokenDecimals').innerHTML)
+        : 18
+    var crowdsaleRate = document.getElementById('crowdsaleRate').innerHTML != ""
+        ? Number(document.getElementById('crowdsaleRate'))
+        : 1
+    var tokenGas = await web3.eth.estimateGas({data: tokenByteCode}, (err, tokenGas) => {
+        if (err) console.log(err)
+        if (!err) console.log({tokenGas})
+    })
+    window.alert('Confirma la transacción en metamask para desplegar el contrato del token')
+    token.new(tokenName, tokenSymbol, tokenDecimals, 
+    {
+        from: web3.eth.accounts[0], 
+        data: tokenByteCode,
+        gas: tokenGas
+    }, 
+    async (err, tokenInstance) => {
+        if (err) {
+            console.log(err)
+            window.alert('Ocurrió un error al desplegar el contrato del token')
+        }
+        if (!err) {
+            if (!tokenInstance.address) {
+                console.log(tokenInstance)
+                console.log('Aún no hay dirección')
+            }
+            if (tokenInstance.address) {
+                console.log(tokenInstance)
+                console.log('Ya hay dirección')
+                var crowdsaleData = crowdsale.new.getData(crowdsaleRate, web3.eth.accounts[0], tokenInstance.address, {data: crowdsaleByteCode})
+                var crowdsaleGas = await web3.eth.estimateGas({data: crowdsaleData}, (err, crowdsaleGas) => {
+                    if (err) console.log(err)
+                    if (!err) console.log({crowdsaleGas})
+                })
+                window.alert('Confirma la transacción en metamask para desplegar el contrato de crowdsale')
+                crowdsale.new(crowdsaleRate, web3.eth.accounts[0], tokenInstance.address,
+                {
+                    from: web3.eth.accounts[0],
+                    data: crowdsaleByteCode,
+                    gas: crowdsaleGas
+                },
+                (err, crowdsaleInstance) => {
+                    if (err) {
+                        console.log(err)
+                        window.alert('Ocurrió un error al despegar el contrato de crowdsale')
+                    }
+                    if (!err) {
+                        if (!crowdsaleInstance.address) {
+                            console.log(crowdsaleInstance)
+                            console.log('Aún no hay dirección')
+                        }
+                        if (crowdsaleInstance.address) {
+                            console.log(crowdsaleInstance)
+                            console.log('Ya hay dirección')
+                            window.alert('Tu contrato de ICO se ha desplegado exitosamente. Toma nota de las direcciones:' +
+                                '\n- Token ERC20: ' + tokenInstance.address + 
+                                '\n- Crowdsale: ' + crowdsaleInstance.address + 
+                                '\n\nGracias por usar nuestro servicio')
+                        }
                     }
                 })
             }

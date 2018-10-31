@@ -17,7 +17,9 @@ block content
                   li.dropdown-item
                     a(href='/eztoken') EZ-Token
                   li.dropdown-item
-                    a(href='/ezico') EZ-ICO
+                    a(href='/ezicoBasic') EZ-ICO (Basic Crowdsale)
+                  li.dropdown-item
+                    a(href='/ezicoMinted') EZ-ICO (Minted Crowdsale)
                   li.dropdown-item
                     a(href='#') EZ-Sales
                   li.dropdown-item
@@ -31,14 +33,16 @@ block content
               .col-md-7.col-sm-12
                 p.mt-2
                   | Crea tu propio token ERC20 y el contrato que lo controla. 
-                  | Solo debes indicar el nombre, el símbolo, la cantidad de decimales, el suministro y la tasa de cambio.
+                  | Solo debes indicar el nombre, el símbolo, la cantidad de decimales y la tasa de cambio.
+                  | Los tokens se crean en la medida que se van recibiendo solicitudes. 
+                  | El dueño del contrato puede finalizarlo en el momento que desee.
                   | Cuando tu contrato reciba ETH enviará tokens, y los ETH recibidos los enviará a tu cuenta de Metamask.
     .page-content
       div
         .tf-work-section
             .container
-                h2.h3 Crea tu contrato para ICO
-                p#contract(hidden='') ezico
+                h2.h3 Crea tu contrato para ICO (Minted)
+                p#contract(hidden='') ezicoMinted
                 p#tokenAbi(hidden='') #{tokenAbi}
                 p#tokenBC(hidden='') #{tokenByteCode}
                 p#crowdsaleAbi(hidden='') #{crowdsaleAbi}
@@ -55,13 +59,10 @@ block content
                         label(for='tokenDecimals') Decimales
                         input.mt-1.form-control(type='number' id='tokenDecimals' name='tokenDecimals' placeholder=18 min='0' max='18')
                     .col-md-1.offset-md-1.col-sm-4
-                        label(for='tokenSupply') Suministro
-                        input.mt-1.form-control(type='number' id='tokenSupply' name='tokenSupply' placeholder=100)
-                    .col-md-1.offset-md-1.col-sm-4
                         label(for='crowdsaleRate') Tokens/ETH
                         input.mt-1.form-control(type='number' id='crowdsaleRate' name='crowdsaleRate' placeholder=1)
                     .col-md-2.offset-md-1.col-sm-4
-                        a.tf-header-heading-btn.a.btn.btn-primary.btn-block.mt-1(href='#myTokens' onclick='getABI()') Generar ICO                         
+                        a.tf-header-heading-btn.a.btn.btn-primary.btn-block.mt-1(href='#myTokens' onclick='getABI()') Generar Contrato                        
     footer.bg-dark.py-4.mt-5.tf-footer
       .container.text-light
         .row
